@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
+#include "Ship.h"
 using namespace std;
 
 //declare structures
@@ -15,7 +16,7 @@ struct shipLocation
 {
     int row;
     int col;
-    bool hit = false;
+    bool hit;
 };
 
 //function prototypes
