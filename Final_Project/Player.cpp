@@ -44,6 +44,3 @@ void Player::decrementShips()
 {
     shipsLeft--;
 }
-
-Player::~Player()
-{}

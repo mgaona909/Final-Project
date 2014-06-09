@@ -28,7 +28,6 @@ public:
     void setGuessCol(int);
     int getGuessCol();
     void decrementShips();
-    virtual ~Player();
 };
 
 #endif	/* PLAYER_H */
