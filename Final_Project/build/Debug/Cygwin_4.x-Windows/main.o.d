@@ -1,3 +1,8 @@
-build/Debug/Cygwin_4.x-Windows/main.o: main.cpp Ship.h
+build/Debug/Cygwin_4.x-Windows/main.o: main.cpp Human.h Player.h \
+ Computer.h
 
-Ship.h:
+Human.h:
+
+Player.h:
+
+Computer.h:

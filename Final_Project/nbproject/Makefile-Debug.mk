@@ -35,8 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Carrier/Carrier.o \
-	${OBJECTDIR}/Ship.o \
+	${OBJECTDIR}/Computer.o \
+	${OBJECTDIR}/Human.o \
+	${OBJECTDIR}/Player.o \
 	${OBJECTDIR}/main.o
 
 
@@ -64,15 +65,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/final_project.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/final_project ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/Carrier/Carrier.o: Carrier/Carrier.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Carrier
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Carrier/Carrier.o Carrier/Carrier.cpp
-
-${OBJECTDIR}/Ship.o: Ship.cpp 
+${OBJECTDIR}/Computer.o: Computer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Ship.o Ship.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Computer.o Computer.cpp
+
+${OBJECTDIR}/Human.o: Human.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Human.o Human.cpp
+
+${OBJECTDIR}/Player.o: Player.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
