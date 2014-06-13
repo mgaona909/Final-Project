@@ -20,6 +20,8 @@ public:
     string getName();
     int getLocation();
     bool checkInput(int);
+    void setGuessRow();
+    void setGuessCol();
 };
 
 #endif	/* HUMAN_H */

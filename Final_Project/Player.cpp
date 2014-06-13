@@ -20,19 +20,9 @@ int Player::getShipsLeft()
     return shipsLeft;
 }
 
-void Player::setGuessRow(int r)
-{
-    guessRow = r;
-}
-
 int Player::getGuessRow()
 {
     return guessRow;
-}
-
-void Player::setGuessCol(int c)
-{
-    guessCol = c;
 }
 
 int Player::getGuessCol()

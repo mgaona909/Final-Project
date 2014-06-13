@@ -40,3 +40,14 @@ bool Human::checkInput(int input)
         return false;
     }
 }
+
+void Human::setGuessRow()
+{
+    cout<<"Guess a row: ";
+    cin>>guessRow;
+}
+void Human::setGuessCol()
+{
+    cout<<"Guess a column: ";
+    cin>>guessCol;
+}

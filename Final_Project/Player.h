@@ -14,7 +14,7 @@ using namespace std;
 
 class Player
 {
-private:
+protected:
     int guessRow;
     int guessCol;
     int shipsLeft;
@@ -23,9 +23,9 @@ public:
     Player(int);
     void setShipsLeft(int);
     int getShipsLeft();
-    void setGuessRow(int);
+    virtual void setGuessRow()=0;
     int getGuessRow();
-    void setGuessCol(int);
+    virtual void setGuessCol()=0;
     int getGuessCol();
     void decrementShips();
 };

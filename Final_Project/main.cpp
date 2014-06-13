@@ -24,7 +24,7 @@ struct shipLocation
 void welcomeScreen();
 char** createBoard(int);
 void initializeBoard(char**);
-void printBoard(char**);
+void printBoards(char**,char**,Human);
 void destroy(char**,int);
 
 
@@ -34,8 +34,6 @@ int main(int argc, char** argv)
     const int SIZE=10;
     char** compBoard;
     char** playerBoard;
-    int gr;
-    int gc;
     int playerNum = 1;
     string n;
     shipLocation ship1, ship2, ship3, ship4, ship5;
@@ -49,6 +47,7 @@ int main(int argc, char** argv)
     //display welcome screen
     welcomeScreen();
     
+    //get player 1's name
     cout<<"Enter your name: ";
     getline(cin, n);
     player1.setName(n);
@@ -83,6 +82,7 @@ int main(int argc, char** argv)
     ship5p.row = player1.getLocation();
     cout<<"Enter the column for Ship 5: ";
     ship5p.col = player1.getLocation();
+    cout<<endl;
     
     //computer's ships placed randomly
     computer.setRandomRow();
@@ -107,11 +107,7 @@ int main(int argc, char** argv)
     ship5.col = computer.getRandomCol();
     
     //display boards
-    cout<<endl<<endl<<player1.getName()<<"'s board"<<endl;
-    printBoard(playerBoard);
-    cout<<endl<<"Computer's board"<<endl;
-    printBoard(compBoard);
-    
+    printBoards(playerBoard,compBoard, player1);
 
 //    //FOR TESTING PURPOSES
 //    //if you want to see where the computer's ships are, delete the comment marks around this block.
@@ -124,17 +120,14 @@ int main(int argc, char** argv)
     //continue taking turns until one player loses all their ships
     while((computer.getShipsLeft()!=0) && (player1.getShipsLeft()!=0))
     {
-    //player's turn
+      //player's turn
       if (playerNum%2==1) 
       {
           playerNum++;
           cout<<endl<<"It's your turn."<<endl;
-          cout << "Guess a row: ";
-          cin>>gr;
-          player1.setGuessRow(gr);
-          cout << "Guess a column: ";
-          cin >> gc;
-          player1.setGuessCol(gc);
+          //player guesses row and column
+          player1.setGuessRow();
+          player1.setGuessCol();
 
           //determine if hit, miss, or out of bounds
           if (player1.getGuessRow()==ship1.row && player1.getGuessCol()==ship1.col)
@@ -147,7 +140,7 @@ int main(int argc, char** argv)
               {
                   cout << "You sunk Ship 1!" << endl;
                   ship1.hit = true;
-                  compBoard[gr][gc] = '1';
+                  compBoard[player1.getGuessRow()][player1.getGuessCol()] = '1';
                   computer.decrementShips();
               }
           }
@@ -161,7 +154,7 @@ int main(int argc, char** argv)
               {
                   cout << "You sunk Ship 2!" << endl;
                   ship2.hit = true;
-                  compBoard[gr][gc] = '2';
+                  compBoard[player1.getGuessRow()][player1.getGuessCol()] = '2';
                   computer.decrementShips();
               }
           }
@@ -175,7 +168,7 @@ int main(int argc, char** argv)
               {
                   cout << "You sunk Ship 3!" << endl;
                   ship3.hit = true;
-                  compBoard[gr][gc] = '3';
+                  compBoard[player1.getGuessRow()][player1.getGuessCol()] = '3';
                   computer.decrementShips();
               }
           }
@@ -189,7 +182,7 @@ int main(int argc, char** argv)
               {
                   cout << "You sunk Ship 4!" << endl;
                   ship4.hit = true;
-                  compBoard[gr][gc] = '4';
+                  compBoard[player1.getGuessRow()][player1.getGuessCol()] = '4';
                   computer.decrementShips();
               }
           }
@@ -203,7 +196,7 @@ int main(int argc, char** argv)
               {
                   cout << "You sunk Ship 5!" << endl;
                   ship5.hit = true;
-                  compBoard[gr][gc] = '5';
+                  compBoard[player1.getGuessRow()][player1.getGuessCol()] = '5';
                   computer.decrementShips();
               }
           }
@@ -213,14 +206,14 @@ int main(int argc, char** argv)
               {
                   cout << "That's not on the board!" << endl;
               }
-              else if (compBoard[gr][gc] == 'X')
+              else if (compBoard[player1.getGuessRow()][player1.getGuessCol()] == 'X')
               {
                   cout << "You already guessed that one!" << endl;
               }
               else
               {
                   cout << "Miss!" << endl;
-                  compBoard[gr][gc] = 'X';
+                  compBoard[player1.getGuessRow()][player1.getGuessCol()] = 'X';
               }
           }
       }
@@ -229,59 +222,55 @@ int main(int argc, char** argv)
       {
           playerNum++;
           cout<<endl<<"Ok, now it's my turn."<<endl;
-          computer.setRandomRow();
-          gr = computer.getRandomRow();
-          computer.setRandomCol();
-          gc = computer.getRandomCol();
-          cout<<"I guess Row "<<gr<<" Column "<<gc<<endl;
+          computer.setGuessRow();
+          computer.setGuessCol();
+          cout<<"I guess Row "<<computer.getGuessRow()<<" Column "<<computer.getGuessCol()<<endl;
           
           //determine if hit, miss, or out of bounds
-          if (computer.getRandomRow()==ship1p.row && computer.getRandomCol()==ship1p.col)
+          if (computer.getGuessRow()==ship1p.row && computer.getGuessCol()==ship1p.col)
           {
                   cout << "I sunk your Ship 1!" << endl<<endl;
                   ship1p.hit = true;
-                  playerBoard[gr][gc] = '1';   
+                  playerBoard[computer.getGuessRow()][computer.getGuessCol()] = '1';   
                   player1.decrementShips();
           }
-          else if (computer.getRandomRow()==ship2p.row && computer.getRandomCol()==ship2p.col)
+          else if (computer.getGuessRow()==ship2p.row && computer.getGuessCol()==ship2p.col)
           {
                   cout << "I sunk your Ship 2!" << endl<<endl;
                   ship2p.hit = true;
-                  playerBoard[gr][gc] = '2';
+                  playerBoard[computer.getGuessRow()][computer.getGuessCol()] = '2';
                   player1.decrementShips();
           }
-          else if (computer.getRandomRow()==ship3p.row && computer.getRandomCol()==ship3p.col)
+          else if (computer.getGuessRow()==ship3p.row && computer.getGuessCol()==ship3p.col)
           {
                   cout << "I sunk your Ship 3!" << endl<<endl;
                   ship3p.hit = true;
-                  playerBoard[gr][gc] = '3';
+                  playerBoard[computer.getGuessRow()][computer.getGuessCol()] = '3';
                   player1.decrementShips();
           }
-          else if (computer.getRandomRow()==ship4p.row && computer.getRandomCol()==ship4p.col)
+          else if (computer.getGuessRow()==ship4p.row && computer.getGuessCol()==ship4p.col)
           {
                   cout << "I sunk your Ship 4!" << endl<<endl;
                   ship4p.hit = true;
-                  playerBoard[gr][gc] = '4';
+                  playerBoard[computer.getGuessRow()][computer.getGuessCol()] = '4';
                   player1.decrementShips();
           }
-          else if (computer.getRandomRow()==ship5p.row && computer.getRandomCol()==ship5p.col)
+          else if (computer.getGuessRow()==ship5p.row && computer.getGuessCol()==ship5p.col)
           {
                   cout << "I sunk your Ship 5!" << endl<<endl;
                   ship5p.hit = true;
-                  playerBoard[gr][gc] = '5';
+                  playerBoard[computer.getGuessRow()][computer.getGuessCol()] = '5';
                   player1.decrementShips();
           }
           else
           {
               cout << "I missed!" << endl << endl;
-              playerBoard[gr][gc] = 'X';
+              playerBoard[computer.getGuessRow()][computer.getGuessCol()] = 'X';
           }
           //display the resulting boards after each round
-          cout<<endl<<player1.getName()<<"'s board"<<endl;
-          printBoard(playerBoard);
+           printBoards(playerBoard,compBoard, player1);
+          cout<<endl;
           cout<<"Your ships left: "<<player1.getShipsLeft()<<endl;
-          cout<<endl<<"Computer's board"<<endl;
-          printBoard(compBoard);
           cout<<"Computer's ships left: "<<computer.getShipsLeft()<<endl;
       }
     } 
@@ -331,18 +320,26 @@ void initializeBoard(char** board)
   }
 }
 
-void printBoard(char** board)
+void printBoards(char** board1, char** board2, Human player1)
 {
-    for (int i=0;i<10;i++)
-    {
-        for (int j=0;j<10;j++)
-        {
-            cout<<"   "<<board[i][j];
-        }
-        cout<<endl;
-    }
-    cout<<endl;
+	cout<<player1.getName()<<"'s Board                            Computer's Board"<<endl;
+	for (int i=0;i<10;i++)
+	{
+	    for (int j=0;j<10;j++)
+	    {
+	        cout<<board1[i][j]<<"  ";
+	        
+	    }
+	    cout<<"		";
+	    for (int k=0;k<10;k++)
+	    {
+	        cout<<board2[k][i]<<"  ";
+	        
+	    }
+	    cout<<endl;
+	}
 }
+
 
 void destroy(char** board, int SIZE)
 {

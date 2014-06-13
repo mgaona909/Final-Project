@@ -18,10 +18,13 @@ private:
     int randomCol;
 public:
     Computer(int);
+   
     void setRandomRow();
     int getRandomRow();
     void setRandomCol();
-    int getRandomCol();
+    int getRandomCol(); 
+    void setGuessRow();
+    void setGuessCol();
 };
 
 #endif	/* COMPUTER_H */

@@ -25,3 +25,12 @@ int Computer::getRandomCol()
 {
     return randomCol;
 }
+void Computer::setGuessRow()
+{
+    guessRow = rand()%10;
+}
+
+void Computer::setGuessCol()
+{
+    guessCol = rand()%10;
+}
